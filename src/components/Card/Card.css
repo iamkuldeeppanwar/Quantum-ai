@@ -1,0 +1,8 @@
+.dashboard_card {
+  border-radius: 32px;
+  background-color: #ffffff;
+  /* height: 300px; */
+  width: 400px;
+  margin-top: 20px;
+  padding: 20px;
+}

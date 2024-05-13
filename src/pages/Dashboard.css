@@ -1,0 +1,49 @@
+.dashborad_welcome_text {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 37.6px;
+}
+
+.welcome_to_text {
+  color: #797979;
+}
+
+.quantum_ai_text {
+  background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.star_icon {
+  margin-top: -25px;
+  margin-left: -10px;
+  width: 15px;
+}
+
+.content_head {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32.6px;
+}
+
+.content_main {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 20.6px;
+  color: #797979;
+}
+
+.content_foot {
+  float: right;
+  background-color: #e556401a;
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+}
+
+.content_foot > img {
+  text-align: center;
+  margin-left: 35%;
+  margin-top: 30%;
+  font-size: 28px;
+}
