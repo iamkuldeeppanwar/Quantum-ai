@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/quantum-ai/static/css/main.9a4dd1fe.css",
+    "main.js": "/quantum-ai/static/js/main.bf4a1e5e.js",
+    "static/js/453.56f46472.chunk.js": "/quantum-ai/static/js/453.56f46472.chunk.js",
+    "service-worker.js": "/quantum-ai/service-worker.js",
+    "static/media/Voice gen.svg": "/quantum-ai/static/media/Voice gen.3178ea2b211038b86f25fb3564e75281.svg",
+    "static/media/Generate B.svg": "/quantum-ai/static/media/Generate B.3171afc478f1d77b694b9d811dc8bfa1.svg",
+    "static/media/Image to image.svg": "/quantum-ai/static/media/Image to image.e27d12d2e464b6d273254a596b3f20c9.svg",
+    "static/media/Selection fill A.svg": "/quantum-ai/static/media/Selection fill A.0c7f54811695d5ae2ecd9ed8b10703e9.svg",
+    "static/media/Frame 1.svg": "/quantum-ai/static/media/Frame 1.cd54e75b24c0278a901ce767c5027137.svg",
+    "index.html": "/quantum-ai/index.html",
+    "main.9a4dd1fe.css.map": "/quantum-ai/static/css/main.9a4dd1fe.css.map",
+    "main.bf4a1e5e.js.map": "/quantum-ai/static/js/main.bf4a1e5e.js.map",
+    "453.56f46472.chunk.js.map": "/quantum-ai/static/js/453.56f46472.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9a4dd1fe.css",
+    "static/js/main.bf4a1e5e.js"
+  ]
+}
