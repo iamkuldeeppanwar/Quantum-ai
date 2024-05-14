@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 import Stars from "../../components/icons/Frame 1.svg";
@@ -26,26 +26,22 @@ const Objectdetect = () => {
           const mediaRecorder = new MediaRecorder(stream);
 
           mediaRecorder.ondataavailable = async (event) => {
-            // handle the recorded data, you can save it or do whatever you want
             console.log("Recorded data:", event.data);
           };
 
           mediaRecorderRef.current = mediaRecorder;
 
-          // Start recording
           mediaRecorder.start();
           setRecording(true);
 
           const model = await cocoSsd.load();
-          const predictions = await model.detect(videoRef.current);
-          console.log(predictions);
-          setPrediction(predictions);
+          detectObjects(model); // Start initial detection immediately
         }
       } else {
-        // Pause recording
-        mediaRecorderRef.current.pause();
+        if (mediaRecorderRef.current) {
+          mediaRecorderRef.current.pause();
+        }
         setRecording(false);
-        console.log(mediaRecorderRef.current);
       }
     } catch (error) {
       console.error("Error accessing camera:", error);
@@ -53,18 +49,48 @@ const Objectdetect = () => {
   };
 
   const stopRecording = async () => {
-    const stream = videoRef.current.srcObject;
-    if (!stream) return; // No stream to stop
-
-    // Get all tracks from the media stream and stop each track
-    stream.getTracks().forEach((track) => {
-      track.stop(); // Stop the track
-    });
-
-    // Clear the video element's srcObject to stop displaying the stream
-    videoRef.current.srcObject = null;
-    setRecording(false);
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject;
+      stream.getTracks().forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+      setRecording(false);
+    }
   };
+
+  const detectObjects = async (model) => {
+    if (
+      !recording ||
+      !videoRef.current ||
+      videoRef.current.videoWidth === 0 ||
+      videoRef.current.videoHeight === 0
+    ) {
+      return;
+    }
+
+    const predictions = await model.detect(videoRef.current);
+    setPrediction(predictions);
+  };
+
+  useEffect(() => {
+    let intervalId;
+
+    const runDetection = async () => {
+      const model = await cocoSsd.load();
+      intervalId = setInterval(() => detectObjects(model), 1000); // Adjust the interval as needed
+    };
+
+    if (recording) {
+      runDetection();
+    } else if (intervalId) {
+      clearInterval(intervalId);
+    }
+
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [recording]);
 
   return (
     <motion.div
