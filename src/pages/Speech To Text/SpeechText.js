@@ -4,39 +4,52 @@ import { motion } from "framer-motion";
 import Stars from "../../components/icons/Frame 1.svg";
 import mikeButton from "../../components/button icons/Mike.png";
 import Loader from "../../components/button icons/Loader.png";
+import pauseButton from "../../components/button icons/Pause.png";
 
 const SpeechText = () => {
-  const [loading, setLoading] = useState(false);
+  const [recognition, setRecognition] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const startRecording = () => {
-    const recognition = new window.webkitSpeechRecognition();
-    recognition.continuous = true; // Recognize speech continuously
-    recognition.interimResults = true; // Get interim results
+    const recognitionInstance = new window.webkitSpeechRecognition();
+    recognitionInstance.continuous = true; // Recognize speech continuously
+    recognitionInstance.interimResults = true; // Get interim results
 
-    recognition.onstart = () => {
+    recognitionInstance.onstart = () => {
       console.log("Speech recognition started");
     };
 
-    recognition.onresult = (event) => {
+    recognitionInstance.onresult = (event) => {
       setLoading(true);
       const transcript = Array.from(event.results)
         .map((result) => result[0].transcript)
         .join("");
-      // console.log("Transcript:", transcript);
       setTranscript(transcript);
       setLoading(false);
     };
 
-    recognition.onerror = (event) => {
+    recognitionInstance.onerror = (event) => {
       console.error("Speech recognition error:", event.error);
     };
 
-    recognition.onend = () => {
+    recognitionInstance.onend = () => {
       console.log("Speech recognition ended");
+      setIsRecording(false);
     };
 
-    recognition.start();
+    recognitionInstance.start();
+    setRecognition(recognitionInstance);
+    setIsRecording(true);
+  };
+
+  const stopRecording = () => {
+    if (isRecording && recognition) {
+      recognition.stop();
+      console.log("Speech recognition stopped");
+      setIsRecording(false);
+    }
   };
 
   return (
@@ -78,10 +91,25 @@ const SpeechText = () => {
           </div>
           <div className="d-flex justify-content-center mt-3">
             <div className="d-flex flex-column">
-              <button className="object_detect_btn" onClick={startRecording}>
-                <img src={mikeButton} alt="..." />
-              </button>
-              <div className="text-center start_text">Start Recording</div>
+              {!isRecording ? (
+                <>
+                  <button
+                    className="object_detect_btn"
+                    onClick={startRecording}
+                  >
+                    <img src={mikeButton} alt="..." />
+                  </button>
+                  <div className="text-center start_text">Start Recording</div>
+                </>
+              ) : (
+                <>
+                  <button className="object_detect_btn" onClick={stopRecording}>
+                    <img src={pauseButton} alt="..." />
+                  </button>
+                  <div className="text-center start_text">Stop Recording</div>
+                </>
+              )}
+
               <div className="object_btn">
                 Please click on the start button and watch your speech will
                 convert into text
