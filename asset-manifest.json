@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/Quantum-ai/static/css/main.9a4dd1fe.css",
-    "main.js": "/Quantum-ai/static/js/main.a3b0bf85.js",
-    "static/js/453.56f46472.chunk.js": "/Quantum-ai/static/js/453.56f46472.chunk.js",
+    "main.css": "/Quantum-ai/static/css/main.d63aaafb.css",
+    "main.js": "/Quantum-ai/static/js/main.84fa6566.js",
+    "static/js/453.dd53e008.chunk.js": "/Quantum-ai/static/js/453.dd53e008.chunk.js",
     "service-worker.js": "/Quantum-ai/service-worker.js",
     "static/media/Voice gen.svg": "/Quantum-ai/static/media/Voice gen.3178ea2b211038b86f25fb3564e75281.svg",
     "static/media/Generate B.svg": "/Quantum-ai/static/media/Generate B.3171afc478f1d77b694b9d811dc8bfa1.svg",
@@ -10,12 +10,12 @@
     "static/media/Selection fill A.svg": "/Quantum-ai/static/media/Selection fill A.0c7f54811695d5ae2ecd9ed8b10703e9.svg",
     "static/media/Frame 1.svg": "/Quantum-ai/static/media/Frame 1.cd54e75b24c0278a901ce767c5027137.svg",
     "index.html": "/Quantum-ai/index.html",
-    "main.9a4dd1fe.css.map": "/Quantum-ai/static/css/main.9a4dd1fe.css.map",
-    "main.a3b0bf85.js.map": "/Quantum-ai/static/js/main.a3b0bf85.js.map",
-    "453.56f46472.chunk.js.map": "/Quantum-ai/static/js/453.56f46472.chunk.js.map"
+    "main.d63aaafb.css.map": "/Quantum-ai/static/css/main.d63aaafb.css.map",
+    "main.84fa6566.js.map": "/Quantum-ai/static/js/main.84fa6566.js.map",
+    "453.dd53e008.chunk.js.map": "/Quantum-ai/static/js/453.dd53e008.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9a4dd1fe.css",
-    "static/js/main.a3b0bf85.js"
+    "static/css/main.d63aaafb.css",
+    "static/js/main.84fa6566.js"
   ]
 }
