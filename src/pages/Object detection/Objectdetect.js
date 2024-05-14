@@ -85,35 +85,12 @@ const Objectdetect = () => {
         <div className="object_detect_card mt-3">
           <div className="object_detect_flex">
             <div className="object_detect_camera">
-              {/* {recording ? (
-                <div className="d-flex align-items-center flex-column mt-3">
-                  <img
-                    className="record_frame_img"
-                    src={recordFrame}
-                    alt="..."
-                  />
-                  <div>Tap start record to detect object</div>
-                  <div className="camera_permission_txt">
-                    Permission: turn on your video camera
-                  </div>
-                </div>
-              ) : (
-                <video
-                  className="camera_detect"
-                  ref={videoRef}
-                  autoPlay
-                  playsInline
-                  muted
-                  // style={{ display: "block" }}
-                />
-              )} */}
               <video
                 className="camera_detect"
                 ref={videoRef}
                 autoPlay
                 playsInline
                 muted
-                // style={{ display: "block" }}
               />
             </div>
             <div className="content_main">
@@ -123,12 +100,17 @@ const Objectdetect = () => {
                   prediction.map((prediction, index) => {
                     return (
                       <ul key={index}>
-                        <li>{prediction.class}</li>
+                        {prediction.score > 0 &&
+                        prediction.class == "bottle" ? (
+                          <li>{prediction.class}</li>
+                        ) : (
+                          <li></li>
+                        )}
                       </ul>
                     );
                   })
                 ) : (
-                  <div className="p-2">No Data</div>
+                  <div className="p-2"></div>
                 )}
               </div>
             </div>
