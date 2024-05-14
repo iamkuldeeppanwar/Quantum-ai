@@ -1,12 +1,6 @@
-import React, { useContext, useEffect, useReducer, useState } from "react";
-import { useTitle } from "../components";
+import React from "react";
 import { Container } from "react-bootstrap";
-import { getDashboardData } from "../states/actions";
-import { Store } from "../states/store";
-import { reducer } from "../states/reducers";
 import { useNavigate } from "react-router-dom";
-import { ColorRing } from "react-loader-spinner";
-import Skeleton from "react-loading-skeleton";
 import { motion } from "framer-motion";
 import Stars from "../components/icons/Frame 1.svg";
 import "./Dashboard.css";
@@ -17,9 +11,6 @@ import objectDetection from "../components/icons/Selection fill A.svg";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const dummyArray = [1, 2, 3, 4, 5, 6];
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { dashboardData, token } = state;
 
   const redirectArray = [
     {
@@ -27,7 +18,7 @@ const Dashboard = () => {
       content:
         "Quantum AI makes recognizing images simple. Our technology quickly identifies objects and scenes in your pictures",
       footer: <img src={imageDetaction} alt="..." />,
-      path: "/users",
+      path: "/Ai/image-prediction",
     },
 
     {
@@ -35,7 +26,7 @@ const Dashboard = () => {
       content:
         "Discover the ease of converting spoken words into text using Quantum AI. Our cutting-edge technology streamlines the process, enabling effortless transcription of your voice recordings.",
       footer: <img src={speedDetaction} alt="..." />,
-      path: "/users",
+      path: "/Ai/speech-recognize",
     },
 
     {
@@ -43,7 +34,7 @@ const Dashboard = () => {
       content:
         "Quantum AI simplifies the process of identifying objects in images. Our cutting-edge technology quickly and accurately recognizes various objects within your images, offering practical solutions for a wide array of applications.",
       footer: <img src={objectDetection} alt="..." />,
-      path: "/users",
+      path: "/Ai/object-detect",
     },
 
     {
@@ -51,7 +42,7 @@ const Dashboard = () => {
       content:
         "Quantum AI makes recognizing images simple. Our technology quickly identifies objects and scenes in your pictures",
       footer: <img src={imageDetaction} alt="..." />,
-      path: "/users",
+      path: "/Ai/speech-recognize",
     },
 
     {
@@ -59,7 +50,7 @@ const Dashboard = () => {
       content:
         "Discover the ease of converting spoken words into text using Quantum AI. Our cutting-edge technology streamlines the process, enabling effortless transcription of your voice recordings.",
       footer: <img src={speedDetaction} alt="..." />,
-      path: "/users",
+      path: "/Ai/speech-recognize",
     },
 
     {
@@ -67,18 +58,9 @@ const Dashboard = () => {
       content:
         "Quantum AI simplifies the process of identifying objects in images. Our cutting-edge technology quickly and accurately recognizes various objects within your images, offering practical solutions for a wide array of applications.",
       footer: <img src={objectDetection} alt="..." />,
-      path: "/users",
+      path: "/Ai/object-detect",
     },
   ];
-  const [{ loading, error }, dispatch] = useReducer(reducer, {
-    loading: false,
-    error: "",
-  });
-
-  useTitle("Dashboard");
-  useEffect(() => {
-    getDashboardData(ctxDispatch, dispatch, token);
-  }, [token]);
 
   return (
     <>
@@ -97,15 +79,34 @@ const Dashboard = () => {
             <br />
             Your Gateway to Intelligent Assistance
           </div>
-          <div
-            className={`d-flex ${loading && " items-center"} flex-wrap gap-3`}
-          >
-            {redirectArray.map((content) => {
+          <div className={`d-flex flex-wrap gap-3`}>
+            {redirectArray.map((content, index) => {
               return (
-                <Card>
-                  <div className="content_head">{content.header}</div>
-                  <div className="content_main">{content.content}</div>
-                  <div className="content_foot">{content.footer}</div>
+                <Card key={index}>
+                  <div
+                    onClick={() => {
+                      navigate(content.path);
+                    }}
+                    className="content_head"
+                  >
+                    {content.header}
+                  </div>
+                  <div
+                    onClick={() => {
+                      navigate(content.path);
+                    }}
+                    className="content_main"
+                  >
+                    {content.content}
+                  </div>
+                  <div
+                    onClick={() => {
+                      navigate(content.path);
+                    }}
+                    className="content_foot"
+                  >
+                    {content.footer}
+                  </div>
                 </Card>
               );
             })}

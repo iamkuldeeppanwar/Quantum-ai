@@ -7,6 +7,7 @@ import Loader from "../../components/button icons/Loader.png";
 
 const SpeechText = () => {
   const [loading, setLoading] = useState(false);
+  const [transcript, setTranscript] = useState("");
 
   const startRecording = () => {
     const recognition = new window.webkitSpeechRecognition();
@@ -22,8 +23,9 @@ const SpeechText = () => {
       const transcript = Array.from(event.results)
         .map((result) => result[0].transcript)
         .join("");
-      console.log("Transcript:", transcript);
-      // setLoading(false)
+      // console.log("Transcript:", transcript);
+      setTranscript(transcript);
+      setLoading(false);
     };
 
     recognition.onerror = (event) => {
@@ -64,7 +66,13 @@ const SpeechText = () => {
               </div>
             ) : (
               <h3>
-                Speak <span>Anything...</span>
+                {transcript ? (
+                  <div>{transcript}</div>
+                ) : (
+                  <>
+                    Speak <span>Anything...</span>
+                  </>
+                )}
               </h3>
             )}
           </div>

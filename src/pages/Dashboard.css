@@ -24,6 +24,7 @@
   font-size: 24px;
   font-weight: 700;
   line-height: 32.6px;
+  cursor: pointer;
 }
 
 .content_main {
@@ -31,6 +32,7 @@
   font-weight: 600;
   line-height: 20.6px;
   color: #797979;
+  cursor: pointer;
 }
 
 .content_foot {
@@ -39,6 +41,7 @@
   width: 70px;
   height: 70px;
   border-radius: 100%;
+  cursor: pointer;
 }
 
 .content_foot > img {

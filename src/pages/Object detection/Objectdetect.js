@@ -4,12 +4,15 @@ import { motion } from "framer-motion";
 import Stars from "../../components/icons/Frame 1.svg";
 import startButton from "../../components/button icons/Sticker.png";
 import pauseButton from "../../components/button icons/Pause.png";
+import * as cocoSsd from "@tensorflow-models/coco-ssd";
+import * as tf from "@tensorflow/tfjs";
 // import recordFrame from "../../components/button icons/RecordFrame.png";
 
 const Objectdetect = () => {
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [recording, setRecording] = useState(false);
+  const [prediction, setPrediction] = useState([]);
 
   const handleCameraClick = async () => {
     try {
@@ -19,13 +22,12 @@ const Objectdetect = () => {
         });
 
         if (videoRef.current) {
-          console.log("first", videoRef.current);
           videoRef.current.srcObject = stream;
           const mediaRecorder = new MediaRecorder(stream);
 
-          mediaRecorder.ondataavailable = (event) => {
+          mediaRecorder.ondataavailable = async (event) => {
             // handle the recorded data, you can save it or do whatever you want
-            console.log("Recorded data:", event);
+            console.log("Recorded data:", event.data);
           };
 
           mediaRecorderRef.current = mediaRecorder;
@@ -33,6 +35,11 @@ const Objectdetect = () => {
           // Start recording
           mediaRecorder.start();
           setRecording(true);
+
+          const model = await cocoSsd.load();
+          const predictions = await model.detect(videoRef.current);
+          console.log(predictions);
+          setPrediction(predictions);
         }
       } else {
         // Pause recording
@@ -112,11 +119,18 @@ const Objectdetect = () => {
             <div className="content_main">
               <h3 className="detection_text">Detections :</h3>
               <div className="detection_content">
-                <ul>
-                  <li>So many leaves are in the plant</li>
-                  <li>Pot</li>
-                  <li>White wall</li>
-                </ul>
+                {prediction.length > 0 ? (
+                  prediction.map((prediction, index) => {
+                    return (
+                      <ul key={index}>
+                        <li>{prediction.class}</li>
+                        <li>{Math.round(prediction.score * 100)}%</li>
+                      </ul>
+                    );
+                  })
+                ) : (
+                  <div className="p-2">No Data</div>
+                )}
               </div>
             </div>
           </div>

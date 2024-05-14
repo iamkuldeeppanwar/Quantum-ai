@@ -1,42 +1,44 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 import Stars from "../../components/icons/Frame 1.svg";
 import uploadButton from "../../components/button icons/Upload.png";
 import { useDropzone } from "react-dropzone";
 import dropImage from "../../components/button icons/Picture.png";
+import * as tf from "@tensorflow/tfjs";
+import * as mobilenet from "@tensorflow-models/mobilenet";
 
 const ImageRecognize = () => {
-  const [image, setImage] = useState(null);
-  // const [previewURL, setPreviewURL] = useState(null);
+  const [predictions, setPredictions] = useState([]);
+  const [selectImage, setSelectedImage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles);
-    // setImage(acceptedFiles);
-    // Do something with the files
-    setImage(
-      acceptedFiles.map((file) => ({
-        file,
-        previewURL: URL.createObjectURL(file), // Create preview URL for each file
-      }))
-    );
+    const file = acceptedFiles[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const image = new Image();
+      image.src = reader.result;
+      image.onload = () => predict(image);
+      setSelectedImage(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   }, []);
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-  // const handleImage = async (e) => {
-  //   const file = e.target.files[0];
-  //   setImage(file);
+  const predict = async (image) => {
+    setLoading(true);
+    const model = await mobilenet.load();
+    const predictions = await model.classify(image);
+    setPredictions(predictions);
+    setLoading(false);
+  };
 
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     setPreviewURL(reader.result);
-  //   };
-  //   if (file) {
-  //     reader.readAsDataURL(file);
-  //   } else {
-  //     setPreviewURL(null);
-  //   }
-  // };
+  useEffect(() => {
+    setPredictions([]);
+  }, [selectImage]);
 
   return (
     <motion.div
@@ -58,25 +60,14 @@ const ImageRecognize = () => {
           <div className="object_detect_flex">
             <div className="object_detect">
               <div className="drop_img_component" {...getRootProps()}>
-                <input
-                  // onChange={handleImage}
-                  id="fileInput"
-                  {...getInputProps()}
-                />
+                <input id="fileInput" {...getInputProps()} />
 
-                {image ? (
-                  <div>
-                    {image.map(({ file, previewURL }) => (
-                      <div key={file.name}>
-                        <img
-                          src={previewURL}
-                          alt="Preview"
-                          style={{ width: "100%" }}
-                        />
-                        <p>{file.name}</p>
-                      </div>
-                    ))}
-                  </div>
+                {selectImage ? (
+                  <img
+                    src={selectImage}
+                    alt="Preview"
+                    style={{ width: "100%" }}
+                  />
                 ) : (
                   <div className="drop_image">
                     <img src={dropImage} alt="..." />
@@ -94,11 +85,20 @@ const ImageRecognize = () => {
             <div className="content_main">
               <h3 className="detection_text">Predections :</h3>
               <div className="detection_content">
-                <ul>
-                  <li>So many leaves are in the plant</li>
-                  <li>Pot</li>
-                  <li>White wall</li>
-                </ul>
+                {predictions.length > 0 ? (
+                  predictions.map((prediction, index) => {
+                    return (
+                      <ul key={index}>
+                        <li>{prediction.className}</li>
+                        <li>{Math.round(prediction.probability * 100)}%</li>
+                      </ul>
+                    );
+                  })
+                ) : (
+                  <div className="p-2">
+                    {loading ? "Loading..." : "No Data"}
+                  </div>
+                )}
               </div>
             </div>
           </div>

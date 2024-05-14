@@ -1,7 +1,6 @@
 import "./SideNavBar.css";
-import React, { useContext, useState } from "react";
-import { Store } from "../../states/store";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Home from "../icons/Generate B.svg";
 import ObjectDetection from "../icons/Selection fill A.svg";
 import SpeechRecognize from "../icons/Voice gen.svg";
@@ -40,27 +39,9 @@ const active_text = {
 export default function SideNavbar({ isExpanded }) {
   const pathname = window.location.href.split("/").slice(-1);
   const [activeLink, setActiveLink] = useState("Dashboard");
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { userInfo } = {
-    userInfo: {
-      fullname: "Codify",
-      avatar:
-        "https://cdn2.iconfinder.com/data/icons/avatars-60/5985/2-Boy-512.png",
-    },
-  };
-  const navigate = useNavigate();
-  const signoutHandler = (e) => {
-    e.preventDefault();
-    if (window.confirm("Are you sure you want to Logout?") === true) {
-      ctxDispatch({ type: "USER_SIGNOUT" });
-      localStorage.removeItem("userInfo");
-      localStorage.removeItem("token");
-      navigate("/");
-    }
-  };
 
   const activeLinkHandler = (text) => {
-    // console.log(pathname);
+    // console.log(text);
     return pathname.includes(active_text[text]);
   };
 
@@ -68,63 +49,48 @@ export default function SideNavbar({ isExpanded }) {
     isExpanded ? "menu-item" : "menu-item menu-item-NX"
   }`;
   return (
-    <>
-      {userInfo ? (
-        <div
-          className={
-            isExpanded
-              ? "side-nav-container"
-              : "side-nav-container side-nav-container-NX"
-          }
-        >
-          <div className="brand-link">
-            <Link to="/">
-              <span
-                className={`brand-text text-center ms-2 ${
-                  !isExpanded && "d-none"
-                } font-weight-light info-text`}
-              >
-                Quantum Ai
-              </span>
-            </Link>
-          </div>
+    <div
+      className={
+        isExpanded
+          ? "side-nav-container"
+          : "side-nav-container side-nav-container-NX"
+      }
+    >
+      <div className="brand-link">
+        <Link to="/">
+          <span
+            className={`brand-text text-center ms-2 ${
+              !isExpanded && "d-none"
+            } font-weight-light info-text`}
+          >
+            Quantum Ai
+          </span>
+        </Link>
+      </div>
 
-          <div className="sidebar">
-            <nav className="mt-2">
-              <ul
-                className="nav-pills nav-sidebar px-0 d-flex flex-column flex-wrap"
-                data-widget="treeview"
-                role="menu"
-                data-accordion="false"
+      <div className="sidebar">
+        <nav className="mt-2">
+          <ul
+            className="nav-pills nav-sidebar px-0 d-flex flex-column flex-wrap"
+            data-widget="treeview"
+            role="menu"
+            data-accordion="false"
+          >
+            {linkList.map(({ icon, text, url }) => (
+              <li
+                key={url}
+                className={`${cls} ${activeLinkHandler(text) && "active-item"}`}
+                onClick={() => setActiveLink(text)}
               >
-                {linkList.map(({ icon, text, url }) => (
-                  <li
-                    key={url}
-                    className={`${cls} ${
-                      activeLinkHandler(text) && "active-item"
-                    }`}
-                    onClick={() => setActiveLink(text)}
-                  >
-                    <Link to={url} className="nav-link">
-                      {icon}
-                      <p className="ms-2">{text}</p>
-                    </Link>
-                  </li>
-                ))}
-
-                {/* <li className={cls}>
-                  <Link onClick={signoutHandler} to="/" className="nav-link">
-                    <FaSignOutAlt className="icon-md" />
-                    <p className="ms-2">Log Out</p>
-                  </Link>
-                </li> */}
-              </ul>
-            </nav>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
-    </>
+                <Link to={url} className="nav-link">
+                  {icon}
+                  <p className="ms-2">{text}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </div>
   );
 }
