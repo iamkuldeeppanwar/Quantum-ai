@@ -124,7 +124,6 @@ const Objectdetect = () => {
                     return (
                       <ul key={index}>
                         <li>{prediction.class}</li>
-                        <li>{Math.round(prediction.score * 100)}%</li>
                       </ul>
                     );
                   })
