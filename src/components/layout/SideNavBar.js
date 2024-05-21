@@ -5,12 +5,13 @@ import Home from "../icons/Generate B.svg";
 import ObjectDetection from "../icons/Selection fill A.svg";
 import SpeechRecognize from "../icons/Voice gen.svg";
 import imageDetection from "../icons/Image to image.svg";
+import { IoMdChatbubbles } from "react-icons/io";
 
 const linkList = [
   {
     icon: <img className="icon-container" src={Home} alt="..." />,
     text: "Home",
-    url: "/",
+    url: "/Ai-dashboard",
   },
   {
     icon: <img className="icon-container" src={ObjectDetection} alt="..." />,
@@ -24,8 +25,13 @@ const linkList = [
   },
   {
     icon: <img className="icon-container" src={imageDetection} alt="..." />,
-    text: "Image recognize",
+    text: "Image prediction",
     url: "/Ai/image-prediction",
+  },
+  {
+    icon: <IoMdChatbubbles size={23} color="#E55540" />,
+    text: "Chat",
+    url: "/Ai/chat",
   },
 ];
 
@@ -33,7 +39,8 @@ const active_text = {
   Dashboard: "dashboard",
   Objectdetection: "Object detection",
   Speechtotext: "Speech to text",
-  Imagerecognize: "Image recognize",
+  Imagerecognize: "Image prediction",
+  Chat: "Chat",
 };
 
 export default function SideNavbar({ isExpanded }) {

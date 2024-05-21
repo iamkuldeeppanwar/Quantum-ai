@@ -53,7 +53,7 @@ const ImageRecognize = () => {
           <span className="star_icons">
             <img src={Stars} alt="..." />
           </span>
-          <span className="object_detect_text">Images recognize</span>
+          <span className="object_detect_text">Images prediction</span>
         </h2>
 
         <div className="object_detect_card mt-3">

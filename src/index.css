@@ -87,14 +87,8 @@ td {
 }
 
 .header {
-  border-bottom: 1px solid #dee2e6;
   z-index: 1020;
-  background: rgb(15, 145, 122);
-  background: linear-gradient(
-    120deg,
-    rgba(15, 145, 122, 1) 0%,
-    rgba(131, 227, 124, 1) 75%
-  );
+  background: transparent;
 }
 
 .header-link {
@@ -610,4 +604,92 @@ pre {
 
 .object_btn {
   color: #797979;
+}
+
+/* ================ Chat CSS ============= */
+.chat_container {
+  border-radius: 10px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  background-color: rgb(244, 238, 238);
+}
+
+.chat_box {
+  height: 550px;
+  padding: 5px;
+  overflow-y: scroll;
+}
+
+.chat_input {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat_input > form > input {
+  width: 95%;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+
+.chat_btn {
+  position: absolute;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+}
+
+.sender {
+  display: flex;
+  justify-content: left;
+}
+
+.chat_sender {
+  display: inline-block;
+  max-width: 80%;
+  padding: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: rgba(165, 237, 165, 0.824);
+  margin-top: 10px;
+}
+
+.reciever {
+  display: flex;
+  justify-content: right;
+}
+
+.chat_reciever {
+  display: inline-block;
+  max-width: 300px;
+  padding: 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: rgba(166, 214, 166, 0.824);
+  margin-top: 10px;
+}
+
+.user_container {
+  margin-top: 10px;
+  height: 600px;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
+.user_info {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  object-fit: contain;
 }

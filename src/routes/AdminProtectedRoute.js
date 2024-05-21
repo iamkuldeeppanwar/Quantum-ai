@@ -11,18 +11,18 @@ export default function AdminProtectedRoute({ children }) {
 
   useEffect(() => {
     const checkToken = async () => {
-      if(!token){
-        navigate("/")
+      if (!token) {
+        navigate("/");
       }
-      if (token &&jwt_decode(token)?.exp < Date.now() / 1000) {
+      if (token && jwt_decode(token)?.exp < Date.now() / 1000) {
         ctxDispatch({ type: "USER_SIGNOUT" });
-        localStorage.removeItem("userInfo");
-        localStorage.removeItem("token");
+        sessionStorage.removeItem("userInfo");
+        sessionStorage.removeItem("token");
         navigate("/");
       }
     };
     checkToken();
   }, [token]);
 
-  return token&&children;
+  return token && children;
 }

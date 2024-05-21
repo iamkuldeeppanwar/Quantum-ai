@@ -105,7 +105,7 @@ const Objectdetect = () => {
           <span className="star_icons">
             <img src={Stars} alt="..." />
           </span>
-          <span className="object_detect_text">Object detection</span>
+          <span className="object_detect_text">Cell Phone detection</span>
         </h2>
 
         <div className="object_detect_card mt-3">
