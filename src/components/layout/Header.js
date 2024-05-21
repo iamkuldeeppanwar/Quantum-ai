@@ -25,7 +25,7 @@ export default function Header({ sidebarHandler }) {
       {userInfo ? (
         <Navbar className="header">
           <Container fluid className="ps-0">
-            <GiHamburgerMenu
+            {/* <GiHamburgerMenu
               style={{
                 fontSize: "1.5rem",
                 color: "#fff",
@@ -33,7 +33,7 @@ export default function Header({ sidebarHandler }) {
                 cursor: "pointer",
               }}
               onClick={() => sidebarHandler()}
-            />
+            /> */}
 
             <Nav className="ms-auto">
               <Dropdown align="end">

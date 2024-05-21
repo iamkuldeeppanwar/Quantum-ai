@@ -92,6 +92,8 @@ const Objectdetect = () => {
     };
   }, [recording]);
 
+  // console.log(prediction);
+
   return (
     <motion.div
       initial={{ x: "-100%" }}
@@ -121,13 +123,14 @@ const Objectdetect = () => {
             </div>
             <div className="content_main">
               <h3 className="detection_text">Detections :</h3>
+              <p>Put your cell phone in front of camera for detection</p>
               <div className="detection_content">
                 {prediction.length > 0 ? (
                   prediction.map((prediction, index) => {
                     return (
                       <ul key={index}>
                         {prediction.score > 0 &&
-                        prediction.class == "bottle" ? (
+                        prediction.class == "cell phone" ? (
                           <li>{prediction.class}</li>
                         ) : (
                           <li></li>

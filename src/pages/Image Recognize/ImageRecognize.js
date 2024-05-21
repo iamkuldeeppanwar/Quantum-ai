@@ -83,7 +83,8 @@ const ImageRecognize = () => {
               </div>
             </div>
             <div className="content_main">
-              <h3 className="detection_text">Predections :</h3>
+              <h3 className="detection_text">Predictions :</h3>
+              <p>Select or drag image it will predict image content</p>
               <div className="detection_content">
                 {predictions.length > 0 ? (
                   predictions.map((prediction, index) => {
